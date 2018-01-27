@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditableEntity.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="Manufacturer.cs" />
     <Compile Include="Migrations\201801210302221_init001.cs" />
     <Compile Include="Migrations\201801210302221_init001.Designer.cs">
       <DependentUpon>201801210302221_init001.cs</DependentUpon>
@@ -57,8 +60,13 @@
     <Compile Include="Migrations\201801210312052_init002.Designer.cs">
       <DependentUpon>201801210312052_init002.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801270726491_Init003.cs" />
+    <Compile Include="Migrations\201801270726491_Init003.Designer.cs">
+      <DependentUpon>201801270726491_Init003.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Other\SuperDevDbContext.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801210312052_init002.resx">
       <DependentUpon>201801210312052_init002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801270726491_Init003.resx">
+      <DependentUpon>201801270726491_Init003.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
