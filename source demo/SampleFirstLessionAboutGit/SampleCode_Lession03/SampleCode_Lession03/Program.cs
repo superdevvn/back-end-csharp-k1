@@ -18,6 +18,7 @@ namespace SampleCode_Lession03
             //ExcuteRole.deleteRole();
             //ExcuteRole.getList();
             ExecuteUser.getList();
+            Console.WriteLine("Tuan anh ngu loz");
         }
     }
 }
