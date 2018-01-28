@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
-    public class Role
+    public class Manufacturer:AuditableEntity
     {
         public Guid Id { get; set; }
 
@@ -13,11 +12,8 @@ namespace Models
         [Index("IX_Code", 1, IsUnique = true)]
         public string Code { get; set; }
 
-        [StringLength(50)]
         public string Name { get; set; }
 
-        public DateTime CreatedDate { get; set; }
-
-        public virtual List<User> Users { get; set; }
+        public string Description { get; set; }
     }
 }
