@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityProduct", "EntityProduct\EntityProduct.csproj", "{41E564DD-BA32-4F1F-8CE3-B06115CD91AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{E16F2709-13C9-44D0-B7E4-4888D93975ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{E614089E-8320-44BA-A900-E8D36FBD997B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41E564DD-BA32-4F1F-8CE3-B06115CD91AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41E564DD-BA32-4F1F-8CE3-B06115CD91AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41E564DD-BA32-4F1F-8CE3-B06115CD91AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41E564DD-BA32-4F1F-8CE3-B06115CD91AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E16F2709-13C9-44D0-B7E4-4888D93975ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E16F2709-13C9-44D0-B7E4-4888D93975ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E16F2709-13C9-44D0-B7E4-4888D93975ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E16F2709-13C9-44D0-B7E4-4888D93975ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E614089E-8320-44BA-A900-E8D36FBD997B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E614089E-8320-44BA-A900-E8D36FBD997B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E614089E-8320-44BA-A900-E8D36FBD997B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E614089E-8320-44BA-A900-E8D36FBD997B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {74DF67E0-9F3F-429A-A1FC-2125ADE8E65E}
+	EndGlobalSection
+EndGlobal

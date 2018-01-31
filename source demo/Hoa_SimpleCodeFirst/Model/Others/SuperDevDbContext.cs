@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Models.Other
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public SuperDevDbContext():base("Data Source=DESKTOP-RB5AHK0;Initial Catalog=CodeFirst1;Persist Security Info=True;User ID=sa;Password=1")
+        public SuperDevDbContext() : base("Data Source=DESKTOP-RB5AHK0;Initial Catalog=CodeFirst;Persist Security Info=True;User ID=sa;Password=1")
         {
 
         }
