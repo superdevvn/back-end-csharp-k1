@@ -37,43 +37,43 @@ namespace GHN
         public string PaymentType { get; set; }
         public string Partner { get; set; }
         public string CircleName { get; set; }
-        public string CreatedDate { get; set; }
-        public string OrderDate { get; set; }
-        public string UpdatedDate { get; set; }
-        public string CODCollectDate { get; set; }
-        public string CODTransferDate { get; set; }
-        public string PaidDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime OrderDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public DateTime CODCollectDate { get; set; }
+        public DateTime CODTransferDate { get; set; }
+        public DateTime PaidDate { get; set; }
         public int CircleID { get; set; }
         //public int ClientID { get; set; }
-        public string ClientHubID { get; set; }
-        public string NumPick { get; set; }
-        public string NumDeliver { get; set; }
-        public string NumReturn { get; set; }
+        public int ClientHubID { get; set; }
+        public int NumPick { get; set; }
+        public int NumDeliver { get; set; }
+        public int NumReturn { get; set; }
         public string CurrentWarehouseName { get; set; }
         public string PickWarehouseName { get; set; }
         public string DeliveryWarehouseName { get; set; }
-        public string Weight { get; set; }
-        public string TotalServiceCost { get; set; }
-        public string TotalExtraFee { get; set; }
-        public string CoDAmount { get; set; }
-        public string StartPickTime { get; set; }
-        public string EndPickTime { get; set; }
-        public string StartReturnTime { get; set; }
-        public string EndReturnTime { get; set; }
+        public double Weight { get; set; }
+        public double TotalServiceCost { get; set; }
+        public double TotalExtraFee { get; set; }
+        public double CoDAmount { get; set; }
+        public DateTime StartPickTime { get; set; }
+        public DateTime EndPickTime { get; set; }
+        public DateTime StartReturnTime { get; set; }
+        public DateTime EndReturnTime { get; set; }
         public string ReturnInfo { get; set; }
-        public string StartDeliveryTime { get; set; }
-        public string EndDeliveryTime { get; set; }
-        public string ExpectedDeliveryTime { get; set; }
-        public string FirstDeliveredTime { get; set; }
-        public string PickUser { get; set; }
-        public string DeliverUser { get; set; }
+        public DateTime StartDeliveryTime { get; set; }
+        public DateTime EndDeliveryTime { get; set; }
+        public DateTime ExpectedDeliveryTime { get; set; }
+        public DateTime FirstDeliveredTime { get; set; }
+        public int PickUser { get; set; }
+        public int DeliverUser { get; set; }
         public string DeliveryUserPhone { get; set; }
-        public string ReturnUser { get; set; }
+        public int ReturnUser { get; set; }
         public string Note { get; set; }
         public string Content { get; set; }
-        public string Length { get; set; }
-        public string Width { get; set; }
-        public string Height { get; set; }
+        public int Length { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public string SessionToken { get; set; }
         public string ErrorMessage { get; set; }
 
@@ -82,7 +82,42 @@ namespace GHN
             return base.ToString();
         }
     }
-        class Program
+    public class ShippingOrder
+    {
+        public int ClientID { get; set; }
+        public string Password { get; set; }
+        public string ClientOrderCode { get; set; }
+        public string GHNOrderCode { get; set; }
+        public string SealCode { get; set; }
+        public int PickHubID { get; set; }
+        public string FromWardCode { get; set; }
+        public string RecipientName { get; set; }
+        public string RecipientPhone { get; set; }
+        public string DeliveryAddress { get; set; }
+        public string DeliveryDistrictCode { get; set; }
+        public string ToWardCode { get; set; }
+        public double CODAmount { get; set; }
+        public int ServiceID { get; set; }
+        public double Weight { get; set; }
+        public string ContentNote { get; set; }
+        public string ClientNote { get; set; }
+        public int Length { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public bool IsDropOff { get; set; }
+        public string ApiKey { get; set; }
+        public string ApiSecretKey { get; set; }
+        public double InsuranceFee { get; set; }
+        public long PickupTime { get; set; }
+
+        public string OrderCode { get; set; }
+        public string OrderCodes60P { get; set; }
+        public double TotalFee { get; set; }
+        public string SessionToken { get; set; }
+        public string ErrorMessage { get; set; }
+
+    }
+    class Program
     {
 
         static HttpClient client = new HttpClient();
@@ -96,6 +131,8 @@ namespace GHN
                 new MediaTypeWithQualityHeaderValue("application/json"));
             try
             {
+
+                //get order
                 Order order = new Order
                 {
                     ApiKey = "dSLjeJstcjwcbcLe",
@@ -106,6 +143,36 @@ namespace GHN
                 };
                 Order result = await GetOrderAsync(order);
                 Console.WriteLine(result);
+
+                //---------------------------create shipping order
+                ShippingOrder so = new ShippingOrder
+                {
+                    ApiKey = "dSLjeJstcjwcbcLe",
+                    ApiSecretKey = "F7BB3C08E9BCA7E8D880B3D9D57FB4DF",
+                    ClientID = 22645,
+                    Password = "NCgJRCksCCsg23hSe",
+                    PickHubID = 40148,
+                    FromWardCode = "1A0301",
+                    RecipientName = "Nguyễn Dương Hoàng Vũ",
+                    RecipientPhone = "0908626483",
+                    DeliveryAddress = "214 Bắc Hải",
+                    DeliveryDistrictCode = "0210",
+                    ToWardCode = "1A0101",
+                    ContentNote = "SC145626404073 | SP: 1x Bút E-pen (Xanh - Vàng) Mã SP: E-pen",
+                    ClientNote = "Không cho thử hàng",
+                    Weight = 100,
+                    Length = 10,
+                    Width = 10,
+                    Height = 10,
+                    ServiceID = 53320,
+                    InsuranceFee = 2000000,
+                    IsDropOff = false,
+                    PickupTime = 1501804800
+                };
+                ShippingOrder result2 = await CreateShippingOrder(so);
+                Console.WriteLine(result2);
+
+
             }
             catch (Exception e)
             {
@@ -121,6 +188,16 @@ namespace GHN
                 order = await response.Content.ReadAsAsync<Order>();
             }
             return order;
+        }
+        static async Task<ShippingOrder> CreateShippingOrder(ShippingOrder so)
+        {
+            HttpResponseMessage response = await client.PostAsJsonAsync(
+                "CreateShippingOrder", so);
+            if (response.IsSuccessStatusCode)
+            {
+                so = await response.Content.ReadAsAsync<ShippingOrder>();
+            }
+            return so;
         }
         static void Main(string[] args)
         {
