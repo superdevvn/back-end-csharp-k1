@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{61F4F451-A4E3-4E10-89DF-CDB26BFD2EB8}</ProjectGuid>
+    <ProjectGuid>{F4A7A682-68EF-4F2B-8448-BB9E8639190B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Models</RootNamespace>
-    <AssemblyName>Models</AssemblyName>
+    <RootNamespace>SuperDev.Services</RootNamespace>
+    <AssemblyName>SuperDev.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,14 +31,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\Project\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\Project\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,42 +48,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditableEntity.cs" />
-    <Compile Include="Category.cs" />
-    <Compile Include="Manufacturer.cs" />
-    <Compile Include="Migrations\201801210302221_init001.cs" />
-    <Compile Include="Migrations\201801210302221_init001.Designer.cs">
-      <DependentUpon>201801210302221_init001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801210312052_init002.cs" />
-    <Compile Include="Migrations\201801210312052_init002.Designer.cs">
-      <DependentUpon>201801210312052_init002.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801270726491_Init003.cs" />
-    <Compile Include="Migrations\201801270726491_Init003.Designer.cs">
-      <DependentUpon>201801270726491_Init003.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Other\SuperDevDbContext.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="ManufacturerService.cs" />
+    <Compile Include="ProductService.cs" />
+    <Compile Include="CategoryService.cs" />
+    <Compile Include="InOutService.cs" />
+    <Compile Include="UnitService.cs" />
+    <Compile Include="SupplierService.cs" />
+    <Compile Include="RoleService.cs" />
+    <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperDev.Models\SuperDev.Models.csproj">
+      <Project>{4b4735fd-4e2c-4744-a263-20f507c911b4}</Project>
+      <Name>SuperDev.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperDev.Repositories\SuperDev.Repositories.csproj">
+      <Project>{af953309-81ae-4cad-ac48-467be7e49a9c}</Project>
+      <Name>SuperDev.Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801210302221_init001.resx">
-      <DependentUpon>201801210302221_init001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801210312052_init002.resx">
-      <DependentUpon>201801210312052_init002.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801270726491_Init003.resx">
-      <DependentUpon>201801270726491_Init003.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
