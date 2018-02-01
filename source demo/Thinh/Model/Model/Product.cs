@@ -27,12 +27,15 @@ namespace Model
     public class ProductComlex {
         public Guid Id { get; set; }
         public Guid Category { get; set; }
-        public Guid CreatedBy { get; set; }
+        public string CategoryName { get; set; }
+        public Guid? CreatedBy { get; set; }
         public string CreatedName { get; set; }
-        public Guid UpdateBy { get; set; }
-        public string UpdateName { get; set; }
+        public Guid? UpdateBy { get; set; }
+        public string UpdatedName { get; set; }
         public Guid CategoryId { get; set; }
         public Guid? ManufacterId { get; set; }
+
+        public string ManufacterName { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
