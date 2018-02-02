@@ -12,14 +12,21 @@ namespace SimpleCodeFirst
     {
         public static void CreateNewRole()
         {
-            Role role = new Role();
-            Console.Write("Role code: ");
-            role.Code = Console.ReadLine();
-            Console.Write("Role name: ");
-            role.Name = Console.ReadLine();
-            RoleRepository roleRepository = new RoleRepository();
-            roleRepository.Create(role);
-            Console.WriteLine("*****************************");
+            try
+            {
+                Role role = new Role();
+                Console.Write("Role code: ");
+                role.Code = Console.ReadLine();
+                Console.Write("Role name: ");
+                role.Name = Console.ReadLine();
+                RoleRepository roleRepository = new RoleRepository();
+                roleRepository.Create(role);
+                Console.WriteLine("*****************************");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public static void UpdateRole()

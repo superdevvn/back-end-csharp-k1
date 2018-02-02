@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GHN.Service.Models
 {
     public class ShippingOrder
     {
-        public int ClientID { get; set; }
-        public string Password { get; set; }
         public string ClientOrderCode { get; set; }
         public string GHNOrderCode { get; set; }
         public string SealCode { get; set; }
@@ -29,16 +23,26 @@ namespace GHN.Service.Models
         public int Width { get; set; }
         public int Height { get; set; }
         public bool IsDropOff { get; set; }
-        public string ApiKey { get; set; }
-        public string ApiSecretKey { get; set; }
         public double InsuranceFee { get; set; }
-        public long PickupTime { get; set; }
-
+        public DateTime PickupTime { get; set; }
         public string OrderCode { get; set; }
         public string OrderCodes60P { get; set; }
         public double TotalFee { get; set; }
         public string SessionToken { get; set; }
         public string ErrorMessage { get; set; }
 
+        public ShippingOrder()
+        {
+            PickupTime = DateTime.Now.AddHours(3);
+        }
+    }
+
+    public class CreateShippingOrderResult
+    {
+        public string OrderCode { get; set; }
+        public string OrderCodes60P { get; set; }
+        public double TotalFee { get; set; }
+        public string ErrorMessage { get; set; }
+        public string SessionToken { get; set; }
     }
 }
