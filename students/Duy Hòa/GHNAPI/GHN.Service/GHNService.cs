@@ -9,7 +9,8 @@ namespace GHN.Service
 {
     public class GHNService
     {
-        private string url = "https://testapipds.ghn.vn:9999/external/b2c/";
+        private string url = "http://api.serverapi.host/api/v1/apiv3/";
+        private string token = "TokenTest";
         public GHNService()
         {
         }
@@ -43,13 +44,14 @@ namespace GHN.Service
             return JsonConvert.DeserializeObject<GetDistrictProvinceDataResult>(responseString);
         }
 
-        public GetPickHubsResult GetPickHubs()
+        public GetHubsResult GetHubs()
         {
-            var request = (HttpWebRequest)WebRequest.Create(url + "GetPickHubs");
-            var accountInfo = GetAcountInfo();
-            var postData = string.Format("ApiKey={0}&ApiSecretKey={1}&ClientID={2}&Password={3}", accountInfo.ApiKey, accountInfo.ApiSecretKey, accountInfo.ClientID, accountInfo.Password);
-            var data = Encoding.ASCII.GetBytes(postData);
+            var request = (HttpWebRequest)WebRequest.Create("http://api.serverapi.host/api/v1/apiv3/GetHubs");
+            var postData = string.Format("token={0}", token);
+            var data = Encoding.UTF8.GetBytes(postData);
             request.Method = "POST";
+            request.Accept = "application/json, text/plain, */*";
+            request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36";
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = data.Length;
 
@@ -58,9 +60,32 @@ namespace GHN.Service
                 stream.Write(data, 0, data.Length);
             }
 
-            var response = (HttpWebResponse)request.GetResponse();
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            return JsonConvert.DeserializeObject<GetPickHubsResult>(responseString);
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    Console.WriteLine("Won't get here");
+                }
+            }
+            catch (WebException e)
+            {
+                using (WebResponse response = e.Response)
+                {
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                    Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                    using (Stream stream = response.GetResponseStream())
+                    using (var reader = new StreamReader(stream))
+                    {
+                        string text = reader.ReadToEnd();
+                        Console.WriteLine(text);
+                    }
+                }
+            }
+
+            //var response = (HttpWebResponse)request.GetResponse();
+            //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            return new GetHubsResult();
+            //return JsonConvert.DeserializeObject<GetHubsResult>(responseString);
         }
 
         public GetOrderInfoResult GetOrderInfo(string orderCode)
