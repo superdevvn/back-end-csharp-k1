@@ -14,11 +14,15 @@ namespace SampleCode_Lession03
             //ExcuteRole.CreateNewRole();
             //ExcuteRole.CreateNewRole();
             //ExcuteRole.getList();
-            //ExcuteRole.updateRole();
+            ExcuteRole.updateRole();
             //ExcuteRole.deleteRole();
             //ExcuteRole.getList();
             ExecuteUser.getList();
+<<<<<<< HEAD
            
+=======
+
+>>>>>>> ff8d7aa8167298504accd153c821a01b8f71b7e7
         }
     }
 }

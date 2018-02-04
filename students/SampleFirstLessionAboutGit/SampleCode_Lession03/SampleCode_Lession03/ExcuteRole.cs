@@ -25,7 +25,7 @@ namespace SampleCode_Lession03
         public static void updateRole()
         {
             Role role = new Role();
-            Guid id = new Guid("2ee3ef14-2984-4159-9da8-15debcbf49d4");
+            Guid id = new Guid("0B78968F-813E-4CA4-B55A-32D0B5F06302");
             RoleRepositoty roleRepositoty = new RoleRepositoty();
             role = roleRepositoty.getById(id);
             Console.WriteLine((String.Format("Currend Code : {0}", role.Code)));
