@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Models
+{
+    public class Order
+    {
+        public Guid Id { get; set; }
+
+        public Guid? CustomerId { get; set; }
+
+        public decimal Total { get; set; }
+        
+        [ForeignKey("CustomerId")]
+        public virtual Customer Customer { get; set; }
+
+    }
+}

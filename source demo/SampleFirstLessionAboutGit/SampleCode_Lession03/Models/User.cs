@@ -12,9 +12,9 @@ namespace Models
     {
         public Guid Id { get; set; }
 
-        public Guid? RoleId { get; set; }
+        //public Guid? RoleId { get; set; }
 
-        public Guid CreatedBy { get; set; }
+        //public Guid CreatedBy { get; set; }
 
         [StringLength(50)] //định dạng xem string đc nhập bao nhiêu ký tự :)
         [Index("Ix_Username", 1, IsUnique = true)] //duy nhất
@@ -32,10 +32,10 @@ namespace Models
         [StringLength(1000)]
         public string Description { get; set; }
 
-        [ForeignKey("RoleId")]
-        public virtual Role Role { get; set; }
-        [ForeignKey("CreatedBy")]
-        public virtual User Creator { get; set; }
+        //[ForeignKey("RoleId")]
+        //public virtual Role Role { get; set; }
+        //[ForeignKey("CreatedBy")]
+        //public virtual User Creator { get; set; }
     }
 
 
@@ -47,19 +47,19 @@ namespace Models
 
         public Guid CreatedBy { get; set; }
 
-//duy nhất
+        //duy nhất
         public string Username { get; set; }
 
-       
+
         public string Password { get; set; }
 
-      
+
         public string FirstName { get; set; }
 
-       
+
         public string LastName { get; set; }
 
-        
+
         public string Description { get; set; }
 
         public string Creator { get; set; }

@@ -11,7 +11,7 @@ namespace Models.Other
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public SuperDevDbContext():base("Data Source=(local);Initial Catalog=BackEndC#;Integrated Security=True")
+        public SuperDevDbContext():base("Data Source=(local);Initial Catalog=CodeFirst2;Integrated Security=True")
         {
 
         }

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C2E7086-D69F-40E4-9279-FDE624F0689C}</ProjectGuid>
+    <ProjectGuid>{93575BBD-B2E6-4E12-9C9C-AB83777BD7D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Models</RootNamespace>
@@ -47,37 +47,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201801210302237_init001.cs" />
-    <Compile Include="Migrations\201801210302237_init001.Designer.cs">
-      <DependentUpon>201801210302237_init001.cs</DependentUpon>
+    <Compile Include="Category.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="ExtraClassEntity.cs" />
+    <Compile Include="Manufacturer.cs" />
+    <Compile Include="Migrations\201801270729400_init01.cs" />
+    <Compile Include="Migrations\201801270729400_init01.Designer.cs">
+      <DependentUpon>201801270729400_init01.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801210312149_init002.cs" />
-    <Compile Include="Migrations\201801210312149_init002.Designer.cs">
-      <DependentUpon>201801210312149_init002.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802030817074_init0021.cs" />
-    <Compile Include="Migrations\201802030817074_init0021.Designer.cs">
-      <DependentUpon>201802030817074_init0021.cs</DependentUpon>
+    <Compile Include="Migrations\201801280320437_init02.cs" />
+    <Compile Include="Migrations\201801280320437_init02.Designer.cs">
+      <DependentUpon>201801280320437_init02.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Other\SuperDevDbContext.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="Orderline.cs" />
+    <Compile Include="Others\DbUtils.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801210302237_init001.resx">
-      <DependentUpon>201801210302237_init001.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801270729400_init01.resx">
+      <DependentUpon>201801270729400_init01.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801210312149_init002.resx">
-      <DependentUpon>201801210312149_init002.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802030817074_init0021.resx">
-      <DependentUpon>201802030817074_init0021.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801280320437_init02.resx">
+      <DependentUpon>201801280320437_init02.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

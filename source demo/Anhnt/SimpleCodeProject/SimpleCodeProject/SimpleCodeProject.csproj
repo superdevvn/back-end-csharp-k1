@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C2E7086-D69F-40E4-9279-FDE624F0689C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Models</RootNamespace>
-    <AssemblyName>Models</AssemblyName>
+    <ProjectGuid>{7108846D-D701-4664-83B6-023676773C61}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SimpleCodeProject</RootNamespace>
+    <AssemblyName>SimpleCodeProject</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,22 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201801210302237_init001.cs" />
-    <Compile Include="Migrations\201801210302237_init001.Designer.cs">
-      <DependentUpon>201801210302237_init001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801210312149_init002.cs" />
-    <Compile Include="Migrations\201801210312149_init002.Designer.cs">
-      <DependentUpon>201801210312149_init002.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802030817074_init0021.cs" />
-    <Compile Include="Migrations\201802030817074_init0021.Designer.cs">
-      <DependentUpon>201802030817074_init0021.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Other\SuperDevDbContext.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="ExcecuteProduct.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,15 +58,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801210302237_init001.resx">
-      <DependentUpon>201801210302237_init001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801210312149_init002.resx">
-      <DependentUpon>201801210312149_init002.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802030817074_init0021.resx">
-      <DependentUpon>201802030817074_init0021.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{93575BBD-B2E6-4E12-9C9C-AB83777BD7D5}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repositories\Repositories.csproj">
+      <Project>{46A33432-DC04-4866-AB2F-A2FE765B691F}</Project>
+      <Name>Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
