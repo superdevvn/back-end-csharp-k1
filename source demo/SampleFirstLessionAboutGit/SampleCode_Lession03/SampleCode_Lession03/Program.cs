@@ -14,11 +14,11 @@ namespace SampleCode_Lession03
             //ExcuteRole.CreateNewRole();
             //ExcuteRole.CreateNewRole();
             //ExcuteRole.getList();
-            //ExcuteRole.updateRole();
+            ExcuteRole.updateRole();
             //ExcuteRole.deleteRole();
             //ExcuteRole.getList();
             ExecuteUser.getList();
-            Console.WriteLine("Tuan anh ngu loz");
+
         }
     }
 }

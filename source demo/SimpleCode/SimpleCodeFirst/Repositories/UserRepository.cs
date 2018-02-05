@@ -28,5 +28,12 @@ namespace Repositories
                 }).ToList();
             }
         }
+        //public User CreateUSer(User user)
+        //{
+        //    using (var context = new SuperDBContext())
+        //    {
+
+        //    }
+        //}
     }
 }
