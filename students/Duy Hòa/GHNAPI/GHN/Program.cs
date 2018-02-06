@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using GHN.Service;
 using GHN.Service.Models;
 
@@ -8,39 +10,81 @@ namespace GHN
     {
         static void Main(string[] args)
         {
-            GHNService service = new GHNService();
-            var pickHubs = service.GetHubs();
-            Console.WriteLine(pickHubs.code);
-            //Console.WriteLine(pickHubs);
-            //var districtProvinceData = service.GetDistrictProvinceData();
-            //Console.WriteLine(districtProvinceData.ErrorMessage);
-            //Console.WriteLine(districtProvinceData);
-            //ShippingOrder shippingOrder = new ShippingOrder()
-            //{
-            //    PickHubID= 40148,
-            //    FromWardCode = "1A0301",
-            //    RecipientName = "Nguyễn Dương Hoàng Vũ",
-            //    RecipientPhone = "0908626483",
-            //    DeliveryAddress = "214 Bắc Hải",
-            //    DeliveryDistrictCode = "0210",
-            //    ToWardCode = "1A0101",
-            //    ContentNote = "SC145626404073 | SP: 1x Bút E-pen (Xanh - Vàng) Mã SP: E-pen",
-            //    ClientNote = "Không cho thử hàng",
-            //    Weight = 100,
-            //    Length = 10,
-            //    Width = 10,
-            //    Height = 10,
-            //    ServiceID = 53320,
-            //    InsuranceFee = 2000000
-            //};
-            //var createShippingOrderResult = service.CreateShippingOrder(shippingOrder);
-            //Console.WriteLine(createShippingOrderResult.ErrorMessage);
-            //Console.WriteLine(createShippingOrderResult);
-
-            //var orderInfo = service.GetOrderInfo("123");
-            //Console.WriteLine(orderInfo.ErrorMessage);
-            //Console.WriteLine(orderInfo);
+            RunAsync().GetAwaiter().GetResult();
             Console.ReadLine();
+        }
+        static async Task RunAsync()
+        {
+            GHNService service = new GHNService();
+
+            // GetHubs
+            Console.WriteLine("[GET HUBS API]");
+            var hubs = await service.GetHubs();
+            Console.WriteLine(string.Format("Status code: {0}", hubs.code));
+            Console.WriteLine(string.Format("Data length: {0}", hubs.data.Count));
+            Console.WriteLine("*******************************");
+
+            //GetDistricts
+
+            Console.WriteLine("[GET DISTRICTS API]");
+            var districts = await service.GetDistricts();
+            Console.WriteLine(string.Format("Status code: {0}", districts.code));
+            Console.WriteLine(string.Format("Data length: {0}", districts.data.Count));
+            Console.WriteLine("*******************************");
+
+            //CreateOrder
+            List<ShippingOrderCost> shippingOrderCosts = new List<ShippingOrderCost>();
+            shippingOrderCosts.Add(new ShippingOrderCost
+            {
+                ServiceID = 53332,
+                ServiceType = 5
+            });
+            ShippingOrder shippingOrder = new ShippingOrder()
+            {
+                PaymentTypeID = 1,
+                FromDistrictID = 1455,
+                FromWardCode = "21402",
+                ToDistrictID = 1462,
+                ToWardCode = "21609",
+                Note = "Tạo ĐH qua API",
+                SealCode = "tem niêm phong",
+                ExternalCode = "",
+                ClientContactName = "client name",
+                ClientContactPhone = "0987654321",
+                ClientAddress = "140 Lê Trọng Tấn",
+                CustomerName = "Nguyễn Văn A",
+                CustomerPhone = "01666666666",
+                ShippingAddress = "137 Lê Quang Định",
+                CoDAmount = 1500000,
+                NoteCode = "CHOXEMHANGKHONGTHU",
+                InsuranceFee = 0,
+                ClientHubID = 0,
+                ServiceID = 53319,
+                ToLatitude = 1.2343322,
+                ToLongitude = 10.54324322,
+                FromLat = 1.2343322,
+                FromLng = 10.54324322,
+                Content = "Test nội dung",
+                CouponCode = "",
+                Weight = 10200,
+                Length = 10,
+                Width = 10,
+                Height = 10,
+                CheckMainBankAccount = false,
+                ShippingOrderCosts = shippingOrderCosts.ToArray(),
+                ReturnContactName = "",
+                ReturnContactPhone = "",
+                ReturnAddress = "",
+                ReturnDistrictCode = "",
+                ExternalReturnCode = "",
+                IsCreditCreate = true
+            };
+            Console.WriteLine("[CREATE ORDER API]");
+            var order = await service.CreateOrder(shippingOrder);
+            Console.WriteLine(string.Format("Status code: {0}", order.code));
+            Console.WriteLine(string.Format("Order ID: {0}", order.data.OrderID));
+            Console.WriteLine(string.Format("Order Code: {0}", order.data.OrderCode));
+            Console.WriteLine("*******************************");
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using GHN.Service.Models;
 using Newtonsoft.Json;
 
@@ -9,10 +12,14 @@ namespace GHN.Service
 {
     public class GHNService
     {
+        private HttpClient httpClient = new HttpClient();
         private string url = "http://api.serverapi.host/api/v1/apiv3/";
         private string token = "TokenTest";
         public GHNService()
         {
+            httpClient.BaseAddress = new Uri(url + "GetHubs");
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         private Account GetAcountInfo()
@@ -22,70 +29,125 @@ namespace GHN.Service
                 string json = streamReader.ReadToEnd();
                 return JsonConvert.DeserializeObject<Account>(json);
             }
+        }        
+
+        public async Task<GetHubsResult> GetHubs()
+        {
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("GetHubs", new { token = token });
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsAsync<GetHubsResult>();
+            }
+            return null;
         }
 
-        public GetDistrictProvinceDataResult GetDistrictProvinceData()
+        public async Task<GetDistrictsResult> GetDistricts()
         {
-            var request = (HttpWebRequest)WebRequest.Create(url + "GetDistrictProvinceData");
-            var accountInfo = GetAcountInfo();
-            var postData = string.Format("ApiKey={0}&ApiSecretKey={1}&ClientID={2}&Password={3}", accountInfo.ApiKey, accountInfo.ApiSecretKey, accountInfo.ClientID, accountInfo.Password);
-            var data = Encoding.ASCII.GetBytes(postData);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = data.Length;
-
-            using (var stream = request.GetRequestStream())
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("GetDistricts", new { token = token });
+            if (response.IsSuccessStatusCode)
             {
-                stream.Write(data, 0, data.Length);
+                return await response.Content.ReadAsAsync<GetDistrictsResult>();
             }
-
-            var response = (HttpWebResponse)request.GetResponse();
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            return JsonConvert.DeserializeObject<GetDistrictProvinceDataResult>(responseString);
+            return null;
         }
 
-        public GetHubsResult GetHubs()
+        public async Task<CreateOrderResult> CreateOrder(ShippingOrder so)
         {
-            var request = (HttpWebRequest)WebRequest.Create("http://api.serverapi.host/api/v1/apiv3/GetHubs");
-            var postData = string.Format("token={0}", token);
-            var data = Encoding.UTF8.GetBytes(postData);
-            request.Method = "POST";
-            request.Accept = "application/json, text/plain, */*";
-            request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = data.Length;
-
-            using (var stream = request.GetRequestStream())
+            ShippingOrderCost[] shippingOrderCosts = new ShippingOrderCost[1];
+            shippingOrderCosts[0] = new ShippingOrderCost
             {
-                stream.Write(data, 0, data.Length);
-            }
-
-            try
+                ServiceID = 53332,
+                ServiceType = 5
+            };
+            so.token = token;
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("CreateOrder", new
             {
-                using (WebResponse response = request.GetResponse())
-                {
-                    Console.WriteLine("Won't get here");
-                }
-            }
-            catch (WebException e)
+                token = token,
+                PaymentTypeID = 1,
+                FromDistrictID = 1455,
+                FromWardCode = "21402",
+                ToDistrictID = 1462,
+                ToWardCode = "21609",
+                Note = "Tạo ĐH qua API",
+                SealCode = "tem niêm phong",
+                ExternalCode = "",
+                ClientContactName = "client name",
+                ClientContactPhone = "0987654321",
+                ClientAddress = "140 Lê Trọng Tấn",
+                CustomerName = "Nguyễn Văn A",
+                CustomerPhone = "01666666666",
+                ShippingAddress = "137 Lê Quang Định",
+                CoDAmount = 1500000,
+                NoteCode = "CHOXEMHANGKHONGTHU",
+                InsuranceFee = 0,
+                ClientHubID = 0,
+                ServiceID = 53319,
+                ToLatitude = 1.2343322,
+                ToLongitude = 10.54324322,
+                FromLat = 1.2343322,
+                FromLng = 10.54324322,
+                Content = "Test nội dung",
+                CouponCode = "",
+                Weight = 10200,
+                Length = 10,
+                Width = 10,
+                Height = 10,
+                CheckMainBankAccount = false,
+                ShippingOrderCosts = shippingOrderCosts,
+                ReturnContactName = "",
+                ReturnContactPhone = "",
+                ReturnAddress = "",
+                ReturnDistrictCode = "",
+                ExternalReturnCode = "",
+                IsCreditCreate = true
+            });
+            //HttpResponseMessage response = await httpClient.PostAsJsonAsync("CreateOrder", new
+            //{
+            //    token = token,
+            //    PaymentTypeID = so.PaymentTypeID,
+            //    FromDistrictID = so.FromDistrictID,
+            //    FromWardCode = so.FromWardCode,
+            //    ToDistrictID = so.ToDistrictID,
+            //    ToWardCode = so.ToWardCode,
+            //    Note = so.ToWardCode,
+            //    SealCode = so.SealCode,
+            //    ExternalCode = so.ExternalCode,
+            //    ClientContactName = so.ClientContactName,
+            //    ClientContactPhone = so.ClientContactPhone,
+            //    ClientAddress = so.ClientAddress,
+            //    CustomerName = so.CustomerName,
+            //    CustomerPhone = so.CustomerPhone,
+            //    ShippingAddress = so.ShippingAddress,
+            //    CoDAmount = so.CoDAmount,
+            //    NoteCode = so.NoteCode,
+            //    InsuranceFee = so.InsuranceFee,
+            //    ClientHubID = so.ClientHubID,
+            //    ServiceID = so.ServiceID,
+            //    ToLatitude = so.ToLatitude,
+            //    ToLongitude = so.ToLongitude,
+            //    FromLat = so.FromLat,
+            //    FromLng = so.FromLng,
+            //    Content = so.Content,
+            //    CouponCode = so.CouponCode,
+            //    Weight = so.Weight,
+            //    Length = so.Length,
+            //    Width = so.Width,
+            //    Height = so.Height,
+            //    CheckMainBankAccount = so.CheckMainBankAccount,
+            //    ShippingOrderCosts = so.ShippingOrderCosts,
+            //    ReturnContactName = so.ReturnContactName,
+            //    ReturnContactPhone = so.ReturnContactPhone,
+            //    ReturnAddress = so.ReturnAddress,
+            //    ReturnDistrictCode = so.ReturnDistrictCode,
+            //    ExternalReturnCode = so.ExternalReturnCode,
+            //    IsCreditCreate = so.IsCreditCreate
+            //});
+            if (response.IsSuccessStatusCode)
             {
-                using (WebResponse response = e.Response)
-                {
-                    HttpWebResponse httpResponse = (HttpWebResponse)response;
-                    Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
-                    using (Stream stream = response.GetResponseStream())
-                    using (var reader = new StreamReader(stream))
-                    {
-                        string text = reader.ReadToEnd();
-                        Console.WriteLine(text);
-                    }
-                }
+                var result = await response.Content.ReadAsAsync<CreateOrderResult>();
+                return result;
             }
-
-            //var response = (HttpWebResponse)request.GetResponse();
-            //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            return new GetHubsResult();
-            //return JsonConvert.DeserializeObject<GetHubsResult>(responseString);
+            return null;
         }
 
         public GetOrderInfoResult GetOrderInfo(string orderCode)
@@ -106,49 +168,6 @@ namespace GHN.Service
             var response = (HttpWebResponse)request.GetResponse();
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
             return JsonConvert.DeserializeObject<GetOrderInfoResult>(responseString);
-        }
-
-        public CreateShippingOrderResult CreateShippingOrder(ShippingOrder so)
-        {
-            var request = (HttpWebRequest)WebRequest.Create(url + "/CreateShippingOrder");
-            var accountInfo = GetAcountInfo();
-            var postData = string.Format("ApiKey={0}&ApiSecretKey={1}&ClientID={2}&Password={3}&PickHubID={4}&FromWardCode={5}&RecipientName={6}&RecipientPhone={7}&DeliveryAddress={8}&DeliveryDistrictCode={9}&ToWardCode={10}&ContentNote={11}&ClientNote={12}&Weight={13}&Length={14}&Width={15}&Height={16}&ServiceID={17}&InsuranceFee={18}&IsDropOff={19}&PickupTime={20}",
-                accountInfo.ApiKey,
-                accountInfo.ApiSecretKey,
-                accountInfo.ClientID,
-                accountInfo.Password,
-                so.PickHubID,
-                so.FromWardCode,
-                so.RecipientName,
-                so.RecipientPhone,
-                so.DeliveryAddress,
-                so.DeliveryDistrictCode,
-                so.ToWardCode,
-                so.ContentNote,
-                so.ClientNote,
-                so.Weight,
-                so.Length,
-                so.Width,
-                so.Height,
-                so.ServiceID,
-                so.InsuranceFee,
-                so.IsDropOff,
-                so.PickupTime.Ticks);
-
-            var data = Encoding.ASCII.GetBytes(postData);
-
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = data.Length;
-
-            using (var stream = request.GetRequestStream())
-            {
-                stream.Write(data, 0, data.Length);
-            }
-
-            var response = (HttpWebResponse)request.GetResponse();
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            return JsonConvert.DeserializeObject<CreateShippingOrderResult>(responseString);
         }
     }
 }
