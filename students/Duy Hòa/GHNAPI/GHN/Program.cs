@@ -33,12 +33,12 @@ namespace GHN
             Console.WriteLine("*******************************");
 
             //CreateOrder
-            List<ShippingOrderCost> shippingOrderCosts = new List<ShippingOrderCost>();
-            shippingOrderCosts.Add(new ShippingOrderCost
+            ShippingOrderCost[] shippingOrderCosts = new ShippingOrderCost[1];
+            shippingOrderCosts[0] = new ShippingOrderCost
             {
                 ServiceID = 53332,
                 ServiceType = 5
-            });
+            };
             ShippingOrder shippingOrder = new ShippingOrder()
             {
                 PaymentTypeID = 1,
@@ -71,7 +71,7 @@ namespace GHN
                 Width = 10,
                 Height = 10,
                 CheckMainBankAccount = false,
-                ShippingOrderCosts = shippingOrderCosts.ToArray(),
+                ShippingOrderCosts = shippingOrderCosts,
                 ReturnContactName = "",
                 ReturnContactPhone = "",
                 ReturnAddress = "",
