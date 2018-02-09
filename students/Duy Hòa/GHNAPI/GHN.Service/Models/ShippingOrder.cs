@@ -30,8 +30,8 @@ namespace GHN.Service.Models
         public int Length { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public double InsuranceFee { get; set; }
-        public double CoDAmount { get; set; }
+        public int InsuranceFee { get; set; }
+        public int CoDAmount { get; set; }
         public string Note { get; set; }
         public string SealCode { get; set; }
         public string ExternalCode { get; set; }
