@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GHN.Service.Models
 {
-    public class HubInfo
+    public class Hub
     {
         public string Address { get; set; }
 
@@ -40,6 +40,6 @@ namespace GHN.Service.Models
     {
         public int code { get; set; }
         public string msg { get; set; }
-        public List<HubInfo> data { get; set; }
+        public List<Hub> data { get; set; }
     }
 }
