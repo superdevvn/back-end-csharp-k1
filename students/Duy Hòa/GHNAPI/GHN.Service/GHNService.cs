@@ -17,7 +17,7 @@ namespace GHN.Service
         private string token = "TokenTest";
         public GHNService()
         {
-            httpClient.BaseAddress = new Uri(url + "GetHubs");
+            httpClient.BaseAddress = new Uri(url);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

@@ -22,6 +22,15 @@ namespace GHN
             var hubs = await service.GetHubs();
             Console.WriteLine(string.Format("Status code: {0}", hubs.code));
             Console.WriteLine(string.Format("Data length: {0}", hubs.data.Count));
+            foreach(var hub in hubs.data)
+            {
+                Console.WriteLine("------------------");
+                Console.WriteLine(string.Format("Contact Name: {0}", hub.ContactName));
+                Console.WriteLine(string.Format("Contact Phone: {0}", hub.ContactPhone));
+                Console.WriteLine(string.Format("DistrictName: {0}", hub.DistrictName));
+                Console.WriteLine(string.Format("FullAddress: {0}", hub.FullAddress));
+            }
+
             Console.WriteLine("*******************************");
 
             //GetDistricts
