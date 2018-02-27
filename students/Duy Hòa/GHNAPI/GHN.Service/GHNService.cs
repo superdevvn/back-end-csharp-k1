@@ -1,41 +1,86 @@
-﻿using GHN.Service.Models;
-using System;
+﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using GHN.Service.Models;
+using Newtonsoft.Json;
 
 namespace GHN.Service
 {
     public class GHNService
     {
-        private HttpClient client;
-
+        private HttpClient httpClient = new HttpClient();
+        private string url = "http://api.serverapi.host/api/v1/apiv3/";
+        private string token = "TokenTest";
         public GHNService()
         {
-            client.BaseAddress = new Uri("https://testapipds.ghn.vn:9999/external/b2c/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.BaseAddress = new Uri(url);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<Order> GetOrderAsync(Order order)
+        private Account GetAcountInfo()
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync(
-                "GetOrderInfo", order);
+            using (StreamReader streamReader = new StreamReader("account.json"))
+            {
+                string json = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<Account>(json);
+            }
+        }        
+
+        public async Task<GetHubsResult> GetHubs()
+        {
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("GetHubs", new { token = token });
             if (response.IsSuccessStatusCode)
             {
-                order = await response.Content.ReadAsAsync<Order>();
+                return await response.Content.ReadAsAsync<GetHubsResult>();
             }
-            return order;
+            return null;
         }
-        public async Task<ShippingOrder> CreateShippingOrder(ShippingOrder so)
+
+        public async Task<GetDistrictsResult> GetDistricts()
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync(
-                "CreateShippingOrder", so);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("GetDistricts", new { token = token });
             if (response.IsSuccessStatusCode)
             {
-                so = await response.Content.ReadAsAsync<ShippingOrder>();
+                return await response.Content.ReadAsAsync<GetDistrictsResult>();
             }
-            return so;
+            return null;
+        }
+
+        public async Task<CreateOrderResult> CreateOrder(ShippingOrder so)
+        {
+            so.token = token;
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("CreateOrder", so);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsAsync<CreateOrderResult>();
+                return result;
+            }
+            return null;
+        }
+
+        public GetOrderInfoResult GetOrderInfo(string orderCode)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url + "GetOrderInfo");
+            var accountInfo = GetAcountInfo();
+            var postData = string.Format("ApiKey={0}&ApiSecretKey={1}&ClientID={2}&Password={3}&OrderCode={4}", accountInfo.ApiKey, accountInfo.ApiSecretKey, accountInfo.ClientID, accountInfo.Password, orderCode);
+            var data = Encoding.ASCII.GetBytes(postData);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            return JsonConvert.DeserializeObject<GetOrderInfoResult>(responseString);
         }
     }
 }
