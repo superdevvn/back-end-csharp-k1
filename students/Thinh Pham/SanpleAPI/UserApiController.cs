@@ -33,7 +33,7 @@ namespace SanpleAPI
             return Ok(userReposity.GetUserById(id));
         }
         [HttpPost]
-        [Route("api/deleteUser")]
+        [Route("api/deleteUser  ")]
         public IHttpActionResult DeleteUser([FromUri]Guid id)
         {
             var userReposity = new UserRepositories();
