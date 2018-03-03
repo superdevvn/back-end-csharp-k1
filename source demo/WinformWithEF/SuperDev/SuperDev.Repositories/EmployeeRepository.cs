@@ -9,7 +9,7 @@ namespace SuperDev.Repositories
 {
     public class EmployeeRepository
     {
-        public List<EmployeeComplex> GetList()
+        public List<EmployeeComplex> GetList(string employeeName, string departmentName)
         {
             using (var context = new SuperDevDbContext())
             {
@@ -29,7 +29,8 @@ namespace SuperDev.Repositories
                     Salary = e.Salary,
                     Sex = e.Sex,
                     StartedDate = e.StartedDate
-                }).ToList();
+                }).Where(e=>e.Name.Contains(employeeName) && e.DepartmentName.Contains(departmentName))
+                .ToList();
             }
         }
     }
