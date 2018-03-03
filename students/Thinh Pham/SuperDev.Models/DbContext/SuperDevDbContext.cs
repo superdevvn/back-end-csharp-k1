@@ -9,7 +9,7 @@ namespace SuperDev.Models
     public partial class SuperDevDbContext : DbContext
     {
         public SuperDevDbContext()
-            : base(nameOrConnectionString: "Data Source=DESKTOP-KDQT218\\SQLEXPRESS;Initial Catalog=Sample;Integrated Security=True;User ID=sa;Password=123")
+            : base(nameOrConnectionString: "Data Source=THINHPHSE62039\\SQLEXPRESS;Initial Catalog=Project;Integrated Security=True;User ID=sa;Password=123")
         {
             Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer<SuperDevDbContext>(null);
