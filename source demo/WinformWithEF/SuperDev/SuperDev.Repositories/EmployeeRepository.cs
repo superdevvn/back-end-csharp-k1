@@ -11,6 +11,7 @@ namespace SuperDev.Repositories
     {
         public List<EmployeeComplex> GetList(string employeeName, string departmentName)
         {
+            var today = DateTime.Today;
             using (var context = new SuperDevDbContext())
             {
                 return context.Employees.Select(e => new EmployeeComplex
@@ -29,7 +30,8 @@ namespace SuperDev.Repositories
                     Salary = e.Salary,
                     Sex = e.Sex,
                     StartedDate = e.StartedDate
-                }).Where(e=>e.Name.Contains(employeeName) && e.DepartmentName.Contains(departmentName))
+                }).AsEnumerable()
+                .Where(e=> (today.Year - e.Birthdate.Year) > 18 && e.Name.Contains(employeeName) && e.DepartmentName.Contains(departmentName))
                 .ToList();
             }
         }
