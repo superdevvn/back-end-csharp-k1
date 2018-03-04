@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SuperDev.Models;
 
 namespace SuperDev
 {
@@ -27,6 +28,9 @@ namespace SuperDev
         private void button2_Click(object sender, EventArgs e)
         {
             if(isCreate)
+            {
+                Employee employee = new Employee();
+            }
         }
     }
 }
