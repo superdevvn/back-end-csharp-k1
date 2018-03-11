@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using SamplePaging.Repositories;
 
 namespace SamplePaging.Controllers
 {
     public class DemoApiController : ApiController
     {
+        [HttpGet]
         [Route("api/getListDemo")]
         public IHttpActionResult GetListDemo(int pageSize, int pageNumber, string orderBy, string orderDirection, string code, string name)
         {
@@ -18,6 +14,14 @@ namespace SamplePaging.Controllers
             if (!string.IsNullOrWhiteSpace(name)) whereClause += string.Format(" AND Name.Contains(\"{0}\")", name);
             DemoRepository demoRepository = new DemoRepository();
             return Ok(demoRepository.GetList(whereClause, pageSize, pageNumber, orderBy, orderDirection));
+        }
+
+        [HttpGet]
+        [Route("api/getDemo/{id}")]
+        public IHttpActionResult GetDemo(int id)
+        {
+            DemoRepository demoRepository = new DemoRepository();
+            return Ok(demoRepository.GetById(id));
         }
     }
 }
