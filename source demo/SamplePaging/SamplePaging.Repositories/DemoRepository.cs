@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Linq.Dynamic;
-using System.Text;
-using System.Threading.Tasks;
 using PagedList;
 using SamplePaging.Models;
+using System.Data.Entity;
 
 namespace SamplePaging.Repositories
 {
@@ -21,6 +18,19 @@ namespace SamplePaging.Repositories
                     .OrderBy(string.Format("{0} {1}", orderBy.Trim(), orderDirection.Trim()))
                     .ToPagedList(pageNumber, pageSize);
                 return new PagedListResult<Demo>(query);
+            }
+        }
+
+        public Demo GetById(int id)
+        {
+            using (var context = new SuperDevDbContext())
+            {
+
+                var a = context.Demos.Where(e => e.Id == id)
+                    .Include(e=>e.Role)
+                    .FirstOrDefault();
+                a.Role.Demos = null;
+                return a;
             }
         }
     }
