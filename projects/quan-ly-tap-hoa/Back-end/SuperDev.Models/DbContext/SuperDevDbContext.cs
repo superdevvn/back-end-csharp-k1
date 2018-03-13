@@ -7,7 +7,7 @@ namespace SuperDev.Models
     public partial class SuperDevDbContext : DbContext
     {
         public SuperDevDbContext()
-            : base("Default")
+            : base("Data Source=THINHPHSE62039\\SQLEXPRESS;Initial Catalog=SuperDevC;Integrated Security=True")
         {
             Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer<SuperDevDbContext>(null);
