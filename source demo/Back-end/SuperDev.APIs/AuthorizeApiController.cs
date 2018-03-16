@@ -2,6 +2,7 @@
 using System.Web.Http;
 using SuperDev.Models;
 using SuperDev.Services;
+using SuperDev.Utilities;
 
 namespace SuperDev.APIs
 {
@@ -13,7 +14,7 @@ namespace SuperDev.APIs
         {
             var loginResponse = new HttpResponseMessage();
             var userService = new UserService();
-            var currentUser = userService.Login(user.Username, user.Password);
+            var currentUser = userService.Login(user.Username,user.Password);
             return Ok(userService.Encrypt(currentUser));
         }
 
