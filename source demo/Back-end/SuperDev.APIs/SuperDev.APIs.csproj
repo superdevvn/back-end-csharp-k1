@@ -76,6 +76,10 @@
       <Project>{f4a7a682-68ef-4f2b-8448-bb9e8639190b}</Project>
       <Name>SuperDev.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SuperDev.Utilities\SuperDev.Utilities.csproj">
+      <Project>{2A1E5AAD-8322-4C6F-B930-2F326C21B1E7}</Project>
+      <Name>SuperDev.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
