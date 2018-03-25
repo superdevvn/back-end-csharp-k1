@@ -60,7 +60,6 @@ namespace SuperDev.APIs
             var currentUser = userService.Login(user.Username, user.Password);
             var cookie = new CookieHeaderValue("session-id", userService.Encrypt(currentUser));
             cookie.Expires = DateTimeOffset.Now.AddDays(1);
-
             resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
             return resp;
         }
